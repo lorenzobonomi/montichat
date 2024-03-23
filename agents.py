@@ -3,6 +3,7 @@
 # Libraries
 import streamlit as st
 import os
+import pandas as pd
 
 # llama libraries
 from llama_index.core import VectorStoreIndex, SummaryIndex, SimpleDirectoryReader, load_index_from_storage, StorageContext
@@ -125,6 +126,7 @@ def agentOpenAI():
 
     fileName = 'salesData'
     data = loadData(fileName)
+    data['InvoiceDate'] = pd.to_datetime(data['InvoiceDate'])
 
     query_engine_pandas = PandasQueryEngine(df = data, verbose = True)
 
