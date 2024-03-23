@@ -89,21 +89,30 @@ if 'query_engine' not in st.session_state.keys():
 if promptSelected1 :
     prompt = promptSelected1
     st.session_state.messages.append({'role': 'user', 'content': prompt})
+    st.chat_input('Your question')
+
 elif promptSelected2:
     prompt = promptSelected2
     st.session_state.messages.append({'role': 'user', 'content': prompt})
+    st.chat_input('Your question')
+
 elif promptSelected3:
     prompt = promptSelected3
     st.session_state.messages.append({'role': 'user', 'content': prompt})
+    st.chat_input('Your question')
+
 elif promptSelected4:
     prompt = promptSelected4
     st.session_state.messages.append({'role': 'user', 'content': prompt})
+    st.chat_input('Your question')
+
 elif prompt := st.chat_input('Your question'): 
     st.session_state.messages.append({'role': 'user', 'content': prompt})
     
 for message in st.session_state.messages:
     with st.chat_message(message['role']):
         st.write(message['content'])
+
 
 if st.session_state.messages[-1]['role'] != 'assistant':
     with st.chat_message('assistant'):
