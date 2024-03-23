@@ -1,0 +1,21 @@
+InvoiceNo: A unique code representing each individual transaction made. This can include returns and is alphanumeric to accommodate different transaction types. Type: String.
+
+StockCode: A product identifier that is unique to each individual item being sold. This code is used for stock inventory and management purposes. Typically, this is an alphanumeric code. Type: String.
+
+Description: Provides a detailed explanation or name of the product. This field contains textual descriptions that are used for identifying items and may include additional details such as color, size, or material. Type: String.
+
+Quantity: Indicates the amount of each product purchased in a transaction. For sales, this number is positive, and for returns, it is typically negative to reflect the reduction in inventory. Type: Integer.
+
+InvoiceDate: The date and time when the transaction was made. This is crucial for financial reporting, stock management, and understanding buying patterns over time. The format is usually datetime to accommodate both date and specific time of transaction. Type: DateTime.
+
+UnitPrice: The cost of one unit of the product, excluding any other costs like shipping or handling. This price is often in the currency of the country where the transaction takes place and is critical for sales analysis and profit calculation. Type: Float.
+
+CustomerID: A unique identifier assigned to each customer who makes a purchase. This allows for tracking customer buying habits, preferences, and loyalty over time. It is essential for personalized marketing and customer relationship management. Type: Integer.
+
+Country: The name of the country where the customer resides or where the purchase is shipped to. This information is vital for analyzing geographical sales distribution, planning logistics, and international marketing strategies. Type: String.
+
+
+
+
+
+
