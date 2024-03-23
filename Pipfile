@@ -9,6 +9,7 @@ llama-index = "*"
 altair = "*"
 llama-index-agent-openai-legacy = "*"
 watchdog = "*"
+exceptiongroup = "*"
 
 [dev-packages]
 
