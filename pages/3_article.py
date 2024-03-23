@@ -6,7 +6,7 @@ import streamlit as st
 # App functions
 from data import loadFile
 
-fileName = 'Article'
+fileName = 'article'
 
 st.set_page_config(page_title = fileName)
 
