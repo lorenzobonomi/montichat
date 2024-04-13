@@ -18,6 +18,7 @@ ipykernel = "*"
 numpy = "*"
 plotly = "*"
 importlib-resources = "*"
+networkx = "*"
 
 [dev-packages]
 
