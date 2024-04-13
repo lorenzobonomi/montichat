@@ -7,7 +7,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import datetime
-import atexit
+
 
 # llama libraries
 from llama_index.core.tools import QueryEngineTool, ToolMetadata
@@ -18,7 +18,6 @@ from data import loadData
 from agents import agentOpenAI
 from data import extract_code
 from data import promptChart
-from cleanup import cleanup
 
 
 top_agent, base_query_engine, query_engines, all_tools = agentOpenAI()
@@ -187,4 +186,3 @@ if st.session_state.messages[-1]['role'] != 'assistant':
                 
             chartNumber += 1
 
-atexit.register(cleanup)
