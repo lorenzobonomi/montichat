@@ -133,7 +133,7 @@ def agentOpenAI():
     data_tool = QueryEngineTool(
             query_engine = query_engine_pandas,
             metadata = ToolMetadata(
-                name = f'tool_data',
+                name = 'tool_data',
                 description = 'sales dataset',
             ),
         )

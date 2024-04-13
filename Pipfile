@@ -10,6 +10,13 @@ altair = "*"
 llama-index-agent-openai-legacy = "*"
 watchdog = "*"
 exceptiongroup = "*"
+anthropic = "*"
+matplotlib = "*"
+notebook = "*"
+jupyter = "*"
+ipykernel = "*"
+numpy = "*"
+plotly = "*"
 
 [dev-packages]
 

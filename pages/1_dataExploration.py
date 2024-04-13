@@ -42,7 +42,7 @@ dataBarchart = data \
     .head(30)
 
 dataCountry = data[data['Country'] == country]
-dataCountry['InvoiceDate'] = pd.to_datetime(dataCountry['InvoiceDate'])
+
 
 dataTimeChart = dataCountry \
     .groupby(pd.Grouper(key = 'InvoiceDate', freq = 'M'))['Quantity'] \
