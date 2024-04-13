@@ -17,6 +17,7 @@ jupyter = "*"
 ipykernel = "*"
 numpy = "*"
 plotly = "*"
+importlib-resources = "*"
 
 [dev-packages]
 
