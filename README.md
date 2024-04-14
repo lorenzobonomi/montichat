@@ -1,2 +1,3 @@
 # montichat
-![Video](video.mp4)
+
+https://github.com/lorenzobonomi/montichat/blob/main/video.mp4
