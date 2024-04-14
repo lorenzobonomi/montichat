@@ -20,6 +20,7 @@ from data import extract_code
 from data import promptChart
 
 
+st.set_option('deprecation.showPyplotGlobalUse', False)
 top_agent, base_query_engine, query_engines, all_tools = agentOpenAI()
 
 if 'visibility' not in st.session_state:
@@ -33,9 +34,6 @@ st. set_page_config(page_title = 'montiChat')
 with st.sidebar:
 
     st.header('montiChat')
-    st.markdown('Play with the chatbot and the agents')
-
-    st.header('OpenAI Chatbot')
     systemPrompt = st.text_area(
         'System Prompt', 
         value = '''You are a data scientist.
