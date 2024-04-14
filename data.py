@@ -3,7 +3,6 @@
 # Libraries
 import pandas as pd
 import re
-import textwrap
 
 
 # Function to load txt data
@@ -14,39 +13,42 @@ def loadFile(fileName):
 
     return dictionary
 
+
 # Function to load csv dataset in pandas dataframe
-# https://archive.ics.uci.edu/dataset/352/online+retail
+# Source: https://archive.ics.uci.edu/dataset/352/online+retail
 def loadData(fileName):
+
     dataset = pd.read_csv(f'data/{fileName}.csv')
     dataset['InvoiceDate'] = pd.to_datetime(dataset['InvoiceDate'], format = '%m/%d/%Y')
     return dataset
 
 
+# Function to improve llm generated chart code
 def extract_code(response, chartNumber):
 
-    start_marker = "```python"
-    end_marker = "```"
-
-# Extract code between markers
-    start = response.find(start_marker) + len(start_marker)
-    end = response.find(end_marker, start)
-    code_snippet = response[start:end].strip()
-
-    print(code_snippet)
+    # Extract code from markets
+    startMarker = "```python"
+    endMarker = "```"
+    start = response.find(startMarker) + len(startMarker)
+    end = response.find(endMarker, start)
+    #codeSnippet = response[start:end].strip()
+    #print(codeSnippet)
 
     if start != -1 and end != -1:
 
         code = response[start:end]
+        
+        # Change figsize parameters
         code = re.sub(r'plt\.figure\(figsize=\(\d+, \d+\)\)', 'plt.rcParams["figure.figsize"] = 8,3', code)
-        # New text to insert
+
+        # Add code to set background color, save chart pic
         adjustCode = f'''
 plt.gcf().set_facecolor('#E1F2F5')\n    
-plt.rcParams['font.serif'] = 'Times New Roman'\n
 plt.xticks(rotation = 0)\n
 plt.savefig('./charts/chart{chartNumber}.jpg', format='jpg', bbox_inches = 'tight', dpi = 300)\n
 plt.show()\n
 '''
-
+        
         # Split the string at plt.show()
         codeSplit = code.split("plt.show()")
 
@@ -55,10 +57,9 @@ plt.show()\n
         print(newCode)
 
         return newCode
-    #else:
-        #return "No code found between '''"
-    
 
+
+# Modify prompt when chart is mentioned   
 def promptChart(prompt):
 
     if 'chart' in prompt:

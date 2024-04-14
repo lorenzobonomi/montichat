@@ -16,19 +16,18 @@ from llama_index.core.query_engine import PandasQueryEngine
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.agent.openai import OpenAIAgent
 from llama_index.core.node_parser import SentenceSplitter
-import networkx
 
 # App functions
 from data import loadData
 
-
+# OpenAI models and client set up
 client = OpenAI(api_key = st.secrets['OPENAI_API_KEY'])
-OpenAI.api_key = client.api_key
-llmMmodel = 'gpt-4-turbo-preview'
+OpenAIModel = 'gpt-4-turbo-preview'
 embeddingModel = 'text-embedding-3-large'
-
-llm = OpenAI(temperature = 0.0, model = llmMmodel, seed = 123)
+LargeLanguageModel = OpenAI(temperature = 0.0, model = OpenAIModel, seed = 123)
 embed_model = OpenAIEmbedding(model = embeddingModel)
+
+
 
 def agentOpenAI():
     documents = ['dictionary', 'article']
@@ -44,7 +43,6 @@ def agentOpenAI():
     agents = {}
     query_engines = {}
 
-    # this is for the baseline
     all_nodes = []
 
     for idx, document in enumerate(documents):
@@ -65,8 +63,8 @@ def agentOpenAI():
         # build summary index
         summary_index = SummaryIndex(nodes)
         # define query engines
-        vector_query_engine = vector_index.as_query_engine(llm = llm)
-        summary_query_engine = summary_index.as_query_engine(llm = llm)
+        vector_query_engine = vector_index.as_query_engine(llm = LargeLanguageModel)
+        summary_query_engine = summary_index.as_query_engine(llm = LargeLanguageModel)
 
         # define tools
         query_engine_tools = [
@@ -94,7 +92,7 @@ def agentOpenAI():
         ]
 
         # build agent
-        function_llm = OpenAI(model = llmMmodel)
+        function_llm = OpenAI(model = OpenAIModel)
         agent = OpenAIAgent.from_tools(
             query_engine_tools,
             llm = function_llm,

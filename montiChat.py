@@ -1,49 +1,61 @@
-### montiChat App
+#### montiChat App
 
-## montiChat page
-
+### Libraries
 # Libraries
 import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
 import datetime
 
-
-# llama libraries
-from llama_index.core.tools import QueryEngineTool, ToolMetadata
-from llama_index.core.query_engine import PandasQueryEngine
-
 # App functions
-from data import loadData
 from agents import agentOpenAI
-from data import extract_code
-from data import promptChart
+from data import extract_code, promptChart, loadData
 
 
+### Streamlit page
+
+## General Settings
+# Turn of matplotlib.pyplot warning
 st.set_option('deprecation.showPyplotGlobalUse', False)
-top_agent, base_query_engine, query_engines, all_tools = agentOpenAI()
+st. set_page_config(page_title = 'montiChat')
+
+
+fileName = 'salesData'
+dataPandas = loadData(fileName)
+features = dataPandas.columns.tolist()
+
+if 'dataPandas' not in st.session_state or 'features' not in st.session_state:
+    st.session_state['dataPandas'] = dataPandas
+    st.session_state['features'] = features
 
 if 'visibility' not in st.session_state:
     st.session_state.visibility = 'visible'
     st.session_state.disabled = False
 
+# Call for agents
+top_agent, base_query_engine, query_engines, all_tools = agentOpenAI()
 
-st. set_page_config(page_title = 'montiChat')
 
-
+## Sidebar
 with st.sidebar:
 
+    # System prompt 
     st.header('montiChat')
+    st.write('')
     systemPrompt = st.text_area(
-        'System Prompt', 
+        label = '#### System Prompt',
         value = '''You are a data scientist.
 You reply with concise statements.
 Do not write too much.'''
 )
 
-    #width = st.sidebar.slider("plot width", 1, 25, 3)
-    #height = st.sidebar.slider("plot height", 1, 25, 1)
+    # Features names:
+    st.write('')
+    st.header('Dataset columns')
+    for feature in features:
+        st.markdown(f'#### &nbsp;&nbsp;{feature}')
 
+
+## Defaults prompt buttons
+# Style for prompts buttons
 def local_css(file_name):
     with open(file_name) as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
@@ -63,7 +75,7 @@ button {
     unsafe_allow_html=True,
 )
 
-
+# Buttons
 st.markdown('##### Click one prompt or ask your question in the chat')
 st.text(" \n")
 
@@ -85,6 +97,8 @@ promptList = [
 ]
 
 
+## Chat session
+# Prompt selection
 with col1:
     if st.button(buttonList[0]):
         promptSelected1 = promptList[0]
@@ -109,6 +123,7 @@ with col4:
     else:
         promptSelected4 = None
 
+# Define message structure. Chart is empty for non chart related answers
 if 'messages' not in st.session_state.keys():
     st.session_state.messages = [
         {'role': 'assistant', 'content': 'Ask me a question about the data', 'chart': ''}
@@ -150,8 +165,10 @@ for message in st.session_state.messages:
             st.image(message['chart'], caption = None, use_column_width = "auto")
 
 
+# Variable for increasing the chart number 
 chartNumber = len(st.session_state.messages)
 
+# Chatbot interaction
 if st.session_state.messages[-1]['role'] != 'assistant':
     with st.chat_message('assistant'):
         
@@ -159,28 +176,22 @@ if st.session_state.messages[-1]['role'] != 'assistant':
             prompt = promptChart(prompt)
             response = st.session_state.query_engine.query(prompt)
 
+            # Varialbe for saving charts with timestamp and incremental number
             timeStampChartNumber = str(datetime.datetime.now()) + '_' + str(chartNumber)
             
+            # If there's code for a chart in the answer, show it in the stream
             if codeChart := extract_code(response.response, timeStampChartNumber):
-                print(chartNumber)
                 plot_area = st.empty()
-                #plt.rcParams['figure.figsize'] = (10, 6) 
                 plot_area.pyplot(exec(codeChart))
-             
-                #st.image('chart.jpg', caption = None, use_column_width = "auto")
 
+                # Chart name saved in the stream to be loaded for previous answers
                 chart = f'./charts/chart{timeStampChartNumber}.jpg'
-
                 message = {'role': 'assistant', 'content': '', 'chart': chart}
                 st.session_state.messages.append(message)
                 
-                
-                
             else:
                 st.write(response.response)  
-
                 message = {'role': 'assistant', 'content': response.response, 'chart': ''}
                 st.session_state.messages.append(message)
                 
-            chartNumber += 1
 
