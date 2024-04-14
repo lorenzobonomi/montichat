@@ -17,6 +17,7 @@ from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.agent.openai import OpenAIAgent
 from llama_index.core.node_parser import SentenceSplitter
 
+
 # App functions
 from data import loadData
 
