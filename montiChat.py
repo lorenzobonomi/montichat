@@ -18,10 +18,11 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 st. set_page_config(page_title = 'montiChat')
 
 
-fileName = 'salesData'
-dataPandas = loadData(fileName)
+# Load dataSet
+dataPandas = loadData('SalesData')
 features = dataPandas.columns.tolist()
 
+# Define session level variables
 if 'dataPandas' not in st.session_state or 'features' not in st.session_state:
     st.session_state['dataPandas'] = dataPandas
     st.session_state['features'] = features
@@ -38,8 +39,7 @@ top_agent, base_query_engine, query_engines, all_tools = agentOpenAI()
 with st.sidebar:
 
     # System prompt 
-    st.header('montiChat')
-    st.write('')
+    
     systemPrompt = st.text_area(
         label = '#### System Prompt',
         value = '''You are a data scientist.
@@ -48,10 +48,10 @@ Do not write too much.'''
 )
 
     # Features names:
-    st.write('')
-    st.header('Dataset columns')
+    st.markdown('#### Dataset columns')
+
     for feature in features:
-        st.markdown(f'#### &nbsp;&nbsp;{feature}')
+        st.markdown(f'##### &nbsp;&nbsp;{feature}')
 
 
 ## Defaults prompt buttons
@@ -63,15 +63,15 @@ local_css('style.css')
 
 st.markdown(
     """
-<style>
-button {
-    height: auto;
-    width: 10px;
-    padding-top: 1px !important;
-    padding-bottom: 1px !important;
-}
-</style>
-""",
+    <style>
+    button {
+        height: auto;
+        width: 10px;
+        padding-top: 1px !important;
+        padding-bottom: 1px !important;
+    }
+    </style>
+    """,
     unsafe_allow_html=True,
 )
 
@@ -104,6 +104,7 @@ with col1:
         promptSelected1 = promptList[0]
     else:
         promptSelected1 = None
+    print(promptSelected1)
 
 with col2:
     if st.button(buttonList[1]):
@@ -132,24 +133,14 @@ if 'messages' not in st.session_state.keys():
 if 'query_engine' not in st.session_state.keys(): 
         st.session_state.query_engine = top_agent
 
+promptSelected = next(
+    (var for var in [promptSelected1, promptSelected2, promptSelected3, promptSelected4] 
+    if var is not None
+    ), None
+)
 
-if promptSelected1 :
-    prompt = promptSelected1
-    st.session_state.messages.append({'role': 'user', 'content': prompt, 'chart': ''})
-    st.chat_input('Your question')
-
-elif promptSelected2:
-    prompt = promptSelected2
-    st.session_state.messages.append({'role': 'user', 'content': prompt, 'chart': ''})
-    st.chat_input('Your question')
-
-elif promptSelected3:
-    prompt = promptSelected3
-    st.session_state.messages.append({'role': 'user', 'content': prompt, 'chart': ''})
-    st.chat_input('Your question')
-
-elif promptSelected4:
-    prompt = promptSelected4
+if promptSelected is not None:
+    prompt = promptSelected
     st.session_state.messages.append({'role': 'user', 'content': prompt, 'chart': ''})
     st.chat_input('Your question')
 
