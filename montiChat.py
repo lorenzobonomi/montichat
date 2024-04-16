@@ -96,34 +96,21 @@ promptList = [
     'which are the top 5 countries by total sum of quantity? Generate a bar chart'
 ]
 
+promptVariable = "promptSelected"
+promptSelection = {}
+col = [col1, col2, col3, col4]
 
 ## Chat session
 # Prompt selection
-with col1:
-    if st.button(buttonList[0]):
-        promptSelected1 = promptList[0]
-    else:
-        promptSelected1 = None
-    print(promptSelected1)
+for i in range(1, len(promptList)+1):
 
-with col2:
-    if st.button(buttonList[1]):
-        promptSelected2 = promptList[1]
-    else:
-        promptSelected2 = None
+    with col[i-1]:
+        if st.button(buttonList[i-1]):
+            promptSelection[promptVariable + str(i)] = promptList[i-1]
+        else:
+            promptSelection[promptVariable + str(i)] = promptList[i-1] = None
 
-with col3:
-    if st.button(buttonList[2]):
-        promptSelected3 = promptList[2]
-    else:
-        promptSelected3 = None
-
-with col4:
-    if st.button(buttonList[3]):
-        promptSelected4 = promptList[3]
-    else:
-        promptSelected4 = None
-
+      
 # Define message structure. Chart is empty for non chart related answers
 if 'messages' not in st.session_state.keys():
     st.session_state.messages = [
@@ -133,11 +120,16 @@ if 'messages' not in st.session_state.keys():
 if 'query_engine' not in st.session_state.keys(): 
         st.session_state.query_engine = top_agent
 
-promptSelected = next(
-    (var for var in [promptSelected1, promptSelected2, promptSelected3, promptSelected4] 
-    if var is not None
-    ), None
-)
+
+for value in promptSelection.values():
+
+    if value is not None:
+        promptSelected = value
+        break
+
+    else:
+        promptSelected = None
+
 
 if promptSelected is not None:
     prompt = promptSelected
