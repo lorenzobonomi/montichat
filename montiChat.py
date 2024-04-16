@@ -4,6 +4,7 @@
 # Libraries
 import streamlit as st
 import datetime
+import pandas as pd
 
 # App functions
 from agents import agentOpenAI
