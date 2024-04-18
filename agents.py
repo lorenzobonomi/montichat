@@ -12,7 +12,7 @@ from llama_index.core.tools import QueryEngineTool, ToolMetadata
 from llama_index.agent.openai import OpenAIAgent
 from llama_index.agent.openai_legacy import FnRetrieverOpenAIAgent
 from llama_index.llms.openai import OpenAI
-from llama_index.core.query_engine import PandasQueryEngine
+from llama_index.experimental.query_engine import PandasQueryEngine
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.agent.openai import OpenAIAgent
 from llama_index.core.node_parser import SentenceSplitter

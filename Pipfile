@@ -19,6 +19,8 @@ numpy = "*"
 plotly = "*"
 importlib-resources = "*"
 networkx = "*"
+sympy = "*"
+llama-index-experimental = "*"
 
 [dev-packages]
 
