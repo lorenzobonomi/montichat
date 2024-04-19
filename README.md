@@ -25,7 +25,7 @@ Here's a list of useful temaples with code from Llamaindex:
 
 OpenAI provides the LLM model and the tools through the available APIs.
 
-<img src = './pictures/diagram.png' alt = 'Diagram' title = 'Diagram' width = '50%'>
+<img src = './pictures/diagram.png' alt = 'Diagram' title = 'Diagram' width = '70%'>
 
 
 ## Results
@@ -50,13 +50,13 @@ If we reason around the difference between the two questions, in full fairness t
 
 With more complex questions, the system fails at a higher rate. Asking the same question as a series of steps helps the system. For example with this question: "Follow these steps: 1 calculate the sum of quantity for country Italy by CustomerID; 2 order these data in descending order by sum of quantity; 3 select the top 1 CustomerID; 4 filter the original dataset by this CustomerID; 5 generate a boxplot chart with the distribution of UnitPrice for this CustomerID", the chatbot generates a boxplot of the UnitPrice but it fails on selecting the customer with the highest quantity.
 
-<img src = './pictures/pic1.png' alt = 'Boxplot' title = 'Boxplot' width = '50%'>
+<img src = './pictures/pic1.png' alt = 'Boxplot' title = 'Boxplot' width = '70%'>
 
 Rephrasing the questions with a more clear flow, however helps the system in generating the right steps:
 
 Follow these steps: 1 calculate the sum of quantity for country Italy by CustomerID; 2 select the CustomerID with the highest sum of quantity as result of step 1; 3 filter the original dataset by this CustomerID; 4 generate a boxplot chart with the distribution of UnitPrice for this CustomerID that is the data resulted from step 3;
 
-<img src = './pictures/pic2.png' alt = 'Boxplot' title = 'Boxplot' width = '50%'>
+<img src = './pictures/pic2.png' alt = 'Boxplot' title = 'Boxplot' width = '70%'>
 
 
 
