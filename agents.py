@@ -73,7 +73,7 @@ def agentOpenAI():
                 metadata = ToolMetadata(
                     name = 'vector_tool',
                     description = (
-                        'Useful for questions related to specific aspects of'
+                        'Useful for questions related to'
                         f' {document}.'
                     ),
                 ),
@@ -111,7 +111,7 @@ def agentOpenAI():
     all_tools = []
     for document in documents:
         document_summary = (
-            f'This content contains Wikipedia articles about {document}. Use'
+            f'This content is about {document}. Use'
             f' this tool if you want to answer any questions about {document}.\n'
         )
         doc_tool = QueryEngineTool(

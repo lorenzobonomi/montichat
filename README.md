@@ -12,13 +12,20 @@ https://github.com/lorenzobonomi/montichat/assets/13397010/04f25ef7-3728-40b4-b0
 
 ## System
 
-The App is built with Streamlit, OpenAI and LlamaIndex and coded entirely with Python.
+The App is built with [Streamlit](https://streamlit.io/), [OpenAI](https://openai.com/blog/openai-api) and [LlamaIndex](https://www.llamaindex.ai/) and coded entirely with Python.
 
 Streamlit is used for the front-end: this framework offers nice and easy to use components to manage the chat conversation and to render the charts. The App can be used on the local machine and also deployed to the Streamlit cloud community environment. 
 
 LlamaIndex is defined as a "data framework for LLM-based applications": for this project, this frameworksprovides the abstraction to augment the context for OpenAI API with multiple tools and gives the ability to ask questions about different sources of content like the dataset with the data itself or documentation like a data dictionary. The abstraction allows to ask a question about the dataset and this question is handled but a query engine tool. The query engine generates a pandas query which is then executed and the results are reported in the chat conversation. The same abstraction can redirect a question about the definition of one the dimensions available in the dataset to another tool. The tool handles the related dictionary data which has been vectorized for RAG. A top agent acts as a sort of orchestrator to leverage all the tools available.
 
+Here's a list of useful temaples with code from Llamaindex: 
+* [Multi documents agents](https://docs.llamaindex.ai/en/stable/examples/agent/multi_document_agents-v1/)
+* [Pandas query engine](https://docs.llamaindex.ai/en/stable/examples/query_engine/pandas_query_engine/?h=query+engine+pandas)
+* [Retrieval-Augmented agent](https://docs.llamaindex.ai/en/stable/examples/agent/openai_agent_retrieval/)
+
 OpenAI provides the LLM model and the tools through the available APIs.
+
+<img src = './pictures/diagram.png' alt = 'Diagram' title = 'Diagram' width = '50%'>
 
 
 ## Results
@@ -43,13 +50,13 @@ If we reason around the difference between the two questions, in full fairness t
 
 With more complex questions, the system fails at a higher rate. Asking the same question as a series of steps helps the system. For example with this question: "Follow these steps: 1 calculate the sum of quantity for country Italy by CustomerID; 2 order these data in descending order by sum of quantity; 3 select the top 1 CustomerID; 4 filter the original dataset by this CustomerID; 5 generate a boxplot chart with the distribution of UnitPrice for this CustomerID", the chatbot generates a boxplot of the UnitPrice but it fails on selecting the customer with the highest quantity.
 
-<img src = './pictures/pic1.png' alt = 'Boxplot' title = 'Solution.' width = '50%'>
+<img src = './pictures/pic1.png' alt = 'Boxplot' title = 'Boxplot' width = '50%'>
 
 Rephrasing the questions with a more clear flow, however helps the system in generating the right steps:
 
 Follow these steps: 1 calculate the sum of quantity for country Italy by CustomerID; 2 select the CustomerID with the highest sum of quantity as result of step 1; 3 filter the original dataset by this CustomerID; 4 generate a boxplot chart with the distribution of UnitPrice for this CustomerID that is the data resulted from step 3;
 
-<img src = './pictures/pic2.png' alt = 'Boxplot' title = 'Solution.' width = '50%'>
+<img src = './pictures/pic2.png' alt = 'Boxplot' title = 'Boxplot' width = '50%'>
 
 
 
