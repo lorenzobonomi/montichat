@@ -31,7 +31,7 @@ Streamlit is used for the front-end: this framework offers nice and easy to use 
 
 LlamaIndex is defined as a "data framework for LLM-based applications". The framework provides the abstraction to augment the context for OpenAI APIs with multiple tools. This means it's possible to ask questions about different sources of content like the sales dataset or documentation like a data dictionary. As an example, the abstraction allows to ask a question about the dataset and this question is handled by a query engine tool. The query engine generates a Pandas query which is then executed and the results are reported in the chat conversation. The same abstraction can redirect a question about the definition of one the dimensions available in the dataset to another tool. The data dictionary tool handles the dictionary document with a RAG technique. A top agent acts as a sort of orchestrator to leverage all the tools available.
 
-Here's a list of useful templates with code from Llamaindex: 
+Here's a list of useful templates with code from Llamaindex used and adapted for this app:
 * [Multi documents agents](https://docs.llamaindex.ai/en/stable/examples/agent/multi_document_agents-v1/)
 * [Pandas query engine](https://docs.llamaindex.ai/en/stable/examples/query_engine/pandas_query_engine/?h=query+engine+pandas)
 * [Retrieval-Augmented agent](https://docs.llamaindex.ai/en/stable/examples/agent/openai_agent_retrieval/)
