@@ -4,9 +4,9 @@
 * [System](#system)
 * [Results](#results)
 * [Limits](#limits)
-+ [Simple questions about the data](#simple-questions-about-the-data)
-+ [More complex questions about the data](#more-complex-questions-about-the-data)
-+ [Chart generation](#chart-generation)
+    * [Simple questions about the data](#simple-questions-about-the-data)
+    * [More complex questions about the data](#more-complex-questions-about-the-data)
+    * [Chart generation](#chart-generation)
 * [Development](#development)
 
 
