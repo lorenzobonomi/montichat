@@ -18,7 +18,9 @@ Montichat is a Streamlit app built with the goal of playing with Generative AI, 
 In the same app, a data exploration section is available to double check the answers of the chatbot. 
 Below a quick screencast of the app in action:
 
-https://github.com/lorenzobonomi/montichat/assets/13397010/04f25ef7-3728-40b4-b099-cabe382dbc73
+
+https://github.com/lorenzobonomi/montichat/assets/13397010/4d70b11a-66e2-406f-bdf3-cceffb83a083
+
 
 
 ## System
