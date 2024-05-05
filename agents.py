@@ -4,7 +4,7 @@
 import streamlit as st
 import os
 import pandas as pd
-import networkx
+
 
 # llama libraries
 from llama_index.core import VectorStoreIndex, SummaryIndex, SimpleDirectoryReader, load_index_from_storage, StorageContext
