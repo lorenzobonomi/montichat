@@ -52,7 +52,7 @@ mdurl==0.1.2
 multidict==6.0.5
 mypy-extensions==1.0.0
 nest-asyncio==1.6.0
-networkx
+networkx==3.3
 nltk==3.8.1
 numpy==1.26.4
 openai==1.14.2
